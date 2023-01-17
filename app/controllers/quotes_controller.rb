@@ -2,7 +2,7 @@ class QuotesController < ApplicationController
   before_action :set_quote, only: %i[show edit update destroy]
 
   def index
-    @quotes = Quote.all
+    @quotes = current_user.quotes
   end
 
   def show; end
@@ -12,7 +12,8 @@ class QuotesController < ApplicationController
   end
 
   def create
-    @quote = Quote.new(quote_params)
+    # @quote = Quote.new(quote_params)
+    @quote = current_user.quotes.build(quote_params)
 
     if @quote.save
       respond_to do |format|
